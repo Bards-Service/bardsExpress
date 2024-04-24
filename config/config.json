@@ -3,21 +3,21 @@
     "username": "admin",
     "password": "password",
     "database": "master-bards-db",
-    "host": "0.0.0.0",
+    "host": "localhost",
     "dialect": "postgres"
   },
   "test": {
     "username": "admin",
     "password": "password",
     "database": "master-bards-db",
-    "host": "0.0.0.0",
+    "host": "localhost",
     "dialect": "postgres"
   },
   "production": {
     "username": "admin",
     "password": "password",
     "database": "master-bards-db",
-    "host": "0.0.0.0",
+    "host": "localhost",
     "dialect": "postgres"
   }
 }
