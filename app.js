@@ -5,9 +5,9 @@ const port = 3000;
 
 // TO DO: заменить на переменные окружения и удалить ненужные комментарии
 const sequelize = new Sequelize(
-  'master-bards-db', // База данных
-  'admin', // Логин
-  'password', // Пароль
+  process.env.POSTGRES_DB,
+  process.env.POSTGRES_USER,
+  process.env.POSTGRES_PASSWORD,
   {
     host: 'db', // Имя контенера с БД
     dialect: 'postgres',
