@@ -1,7 +1,6 @@
 name: Project Check
 
 on:
-  - push
   - pull_request
 
 env:
