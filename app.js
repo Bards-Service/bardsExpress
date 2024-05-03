@@ -1,7 +1,9 @@
 import Express from "express";
 import Sequelize from "sequelize";
+import userRouter from "./routes/user.js";
 const app = Express();
 const port = 3000;
+
 
 // TO DO: заменить на переменные окружения и удалить ненужные комментарии
 const sequelize = new Sequelize(
@@ -30,3 +32,5 @@ await sequelize
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
+
+app.use('/user', userRouter);
