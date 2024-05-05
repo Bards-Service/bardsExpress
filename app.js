@@ -1,36 +1,21 @@
-import Express from "express";
-import Sequelize from "sequelize";
-import userRouter from "./routes/user.js";
+import Express from 'express';
+import db from './models/index.js';
+import userRouter from './routes/user.js';
+
 const app = Express();
 const port = 3000;
 
+// Выполнение подключения к базе данных
+try {
+  await db.authenticate();
+  console.log('Поделючение к БД - успех!');
+} catch (error) {
+  console.error('Поделючение к БД - пропал. Описание: \n', error);
+}
 
-// TO DO: заменить на переменные окружения и удалить ненужные комментарии
-const sequelize = new Sequelize(
-  'master-bards-db', // База данных
-  'admin', // Логин
-  'password', // Пароль
-  {
-    host: 'db', // Имя контенера с БД
-    dialect: 'postgres',
-  }
-);
-
-
-await sequelize
-  .sync()
-  .then(result => {
-    console.log('DB connected!');
-    app.listen(port, () => {
-      console.log(`Bards Express app listening on port ${port}`);
-    });
-  })
-  .catch(err => {
-    console.log(err);
-  });
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
+// Роуты
 app.use('/user', userRouter);
+
+app.listen(port, () => {
+  console.log(`Bards Express app listening on port ${port}`);
+});

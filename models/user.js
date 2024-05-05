@@ -1,19 +1,29 @@
-import { Sequelize, Model, DataTypes } from 'sequelize';
-const sequelize = new Sequelize('postgres:');
+import { DataTypes, Model } from 'sequelize';
+import db from './index.js';
 
-const User = sequelize.define('user', {
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
+class User extends Model {}
+
+const model = User.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    firstName: DataTypes.TEXT,
+    secondName: DataTypes.TEXT,
+    middleName: DataTypes.TEXT,
+    birthday: DataTypes.DATEONLY,
+    artistName: DataTypes.TEXT,
+    email: DataTypes.TEXT,
+    phone: DataTypes.STRING,
+    hashPassword: DataTypes.STRING,
+    vkLink: DataTypes.STRING,
   },
-  firstName: DataTypes.TEXT,
-  secondName: DataTypes.TEXT,
-  middleName: DataTypes.TEXT,
-  birthday: DataTypes.DATEONLY,
-  artistName: DataTypes.TEXT,
-  email: DataTypes.TEXT,
-  phone: DataTypes.STRING,
-  hashPassword: DataTypes.STRING,
-  vkLink: DataTypes.STRING,
-});
+  {
+    sequelize: db,
+    tableName: 'User',
+  },
+);
+
+export default model;
