@@ -8,7 +8,7 @@ userRouter.get('/', async (req, res) => {
     const users = await User.findAll({});
     res.status(200).send(`Все пользователи: ${JSON.stringify(users, null, 2)}`);
   } catch (e) {
-    res.status(503).send(e);
+    res.status(503).send(`Ошибка базы данных: ${e}`);
   }
 });
 
@@ -32,21 +32,20 @@ userRouter.post('/', async (req, res) => {
     });
     res.status(201).send(`id: ${JSON.stringify(thisUser[0].id, null, 2)}`);
   } catch (e) {
-    res.status(400).send(e);
+    res.status(400).send(`Ошибка создания пользователя: ${e}`);
   }
 });
 
 userRouter.get('/:id', async (req, res) => {
   const { id } = req.params;
-  try {
-    const users = await User.findAll({
-      where: {
-        id,
-      },
-    });
-    res.send(`Пользователь ${id}: ${JSON.stringify(users, null, 2)}`);
-  } catch (e) {
-    res.sendStatus(404);
+  const user = await User.findAll({
+    where: { id },
+  });
+  const userInfo = JSON.stringify(user, null, 2);
+  if (userInfo.length - 2 !== 0) {
+    res.status(200).send(`Пользователь ${id}: ${userInfo}`);
+  } else {
+    res.status(404).send(`Пользователь не найден!`);
   }
 });
 

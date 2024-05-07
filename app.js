@@ -8,9 +8,9 @@ const port = 3000;
 // Выполнение подключения к базе данных
 try {
   await db.authenticate();
-  console.log('Поделючение к БД - успех!');
+  console.log('Подключение к БД - успех!');
 } catch (error) {
-  console.error('Поделючение к БД - пропал. Описание: \n', error);
+  console.error('Подключение к БД - пропало. Описание: \n', error);
 }
 
 app.use(Express.json());

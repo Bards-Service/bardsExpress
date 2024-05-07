@@ -9,63 +9,15 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      firstName: { 
-        type: Sequelize.DataTypes.TEXT,
-        validate: {
-          len: [1, 255],
-          notEmpty: true,
-          isAlpha: true,
-        },
-      },
-      lastName: { 
-        type: Sequelize.DataTypes.TEXT,
-        validate: {
-          len: [1, 255],
-          notEmpty: true,
-          isAlpha: true,
-        },
-      },
-      middleName: { 
-        type: Sequelize.DataTypes.TEXT,
-        validate: {
-          len: [1, 255],
-          isAlpha: true,
-        },
-      },
+      firstName: Sequelize.DataTypes.TEXT,
+      secondName: Sequelize.DataTypes.TEXT,
+      middleName: Sequelize.DataTypes.TEXT,
       birthday: Sequelize.DataTypes.DATEONLY,
       artistName: Sequelize.DataTypes.TEXT,
-      email: { 
-        type: Sequelize.DataTypes.TEXT,
-        allowNull: false,
-        validate: {
-          len: [1, 255],
-          isEmail: true,
-        },
-      },
-      phone: { 
-        type: Sequelize.DataTypes.STRING,
-        validate: {
-          is: ["\+[0-9]{11}"]
-        },
-      },
-      hashPassword: { 
-        type: Sequelize.DataTypes.STRING,
-        allowNull: false,
-      },
-      vkLink: { 
-        type: Sequelize.DataTypes.STRING,
-        validate: {
-          isUrl: true,
-        },
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
+      email: Sequelize.DataTypes.TEXT,
+      phone: Sequelize.DataTypes.STRING,
+      hashPassword: Sequelize.DataTypes.STRING,
+      vkLink: Sequelize.DataTypes.STRING,
     })
   },
 
