@@ -45,7 +45,7 @@ userRouter.get('/:id', async (req, res) => {
   if (userInfo.length - 2 !== 0) {
     res.status(200).send(`Пользователь ${id}: ${userInfo}`);
   } else {
-    res.status(404).send(`Пользователь не найден!`);
+    res.status(404).send('Пользователь не найден!');
   }
 });
 
