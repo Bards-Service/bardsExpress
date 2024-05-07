@@ -4,29 +4,50 @@ import User from '../models/user.js';
 const userRouter = express.Router();
 
 userRouter.get('/', async (req, res) => {
-  const users = await User.findAll({
-    attributes: [
-      'id',
-      'firstName',
-      'secondName',
-      'middleName',
-      'birthday',
-      'artistName',
-      'email',
-      'phone',
-      'hashPassword',
-      'vkLink',
-    ],
-  });
-  res.send(`Метод полученимя всех пользователей не реализован! test: ${users}`);
+  try {
+    const users = await User.findAll({});
+    res.status(200).send(`Все пользователи: ${JSON.stringify(users, null, 2)}`);
+  } catch (e) {
+    res.status(503).send(e);
+  }
 });
 
 userRouter.post('/', async (req, res) => {
-  res.send('Метод создания нового пользователя не реализован!');
+  try {
+    const thisUser = await User.findOrCreate({
+      where: {
+        email: req.body.email,
+      },
+      defaults: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        middleName: req.body.middleName,
+        birthday: req.body.birthday,
+        artistName: req.body.artistName,
+        email: req.body.email,
+        phone: req.body.phone,
+        hashPassword: req.body.hashPassword,
+        vkLink: req.body.vkLink,
+      },
+    });
+    res.status(201).send(`id: ${JSON.stringify(thisUser[0].id, null, 2)}`);
+  } catch (e) {
+    res.status(400).send(e);
+  }
 });
 
 userRouter.get('/:id', async (req, res) => {
-  res.send('Метод получения информации о конкретном пользователе не реализован!');
+  const { id } = req.params;
+  try {
+    const users = await User.findAll({
+      where: {
+        id,
+      },
+    });
+    res.send(`Пользователь ${id}: ${JSON.stringify(users, null, 2)}`);
+  } catch (e) {
+    res.sendStatus(404);
+  }
 });
 
 userRouter.put('/:id', async (req, res) => {

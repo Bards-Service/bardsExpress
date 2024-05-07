@@ -13,6 +13,8 @@ try {
   console.error('Поделючение к БД - пропал. Описание: \n', error);
 }
 
+app.use(Express.json());
+
 // Роуты
 app.use('/user', userRouter);
 
