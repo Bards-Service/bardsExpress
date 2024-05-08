@@ -10,15 +10,55 @@ const model = User.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    firstName: DataTypes.TEXT,
-    secondName: DataTypes.TEXT,
-    middleName: DataTypes.TEXT,
+    firstName: {
+      type: DataTypes.TEXT,
+      validate: {
+        len: [1, 255],
+        notEmpty: true,
+        isAlpha: true,
+      },
+    },
+    lastName: {
+      type: DataTypes.TEXT,
+      validate: {
+        len: [1, 255],
+        notEmpty: true,
+        isAlpha: true,
+      },
+    },
+    middleName: {
+      type: DataTypes.TEXT,
+      validate: {
+        len: [1, 255],
+        isAlpha: true,
+      },
+    },
     birthday: DataTypes.DATEONLY,
     artistName: DataTypes.TEXT,
-    email: DataTypes.TEXT,
-    phone: DataTypes.STRING,
-    hashPassword: DataTypes.STRING,
-    vkLink: DataTypes.STRING,
+    email: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        len: [1, 255],
+        isEmail: true,
+      },
+    },
+    phone: {
+      type: DataTypes.STRING,
+      validate: {
+        is: ['+[0-9]{11}'],
+      },
+    },
+    hashPassword: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    vkLink: {
+      type: DataTypes.STRING,
+      validate: {
+        isUrl: true,
+      },
+    },
   },
   {
     sequelize: db,
