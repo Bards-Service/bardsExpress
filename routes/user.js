@@ -50,7 +50,15 @@ userRouter.get('/:id', async (req, res) => {
 });
 
 userRouter.put('/:id', async (req, res) => {
-  res.send('Метод редактирования конкретного пользователя не реализован!');
+  try {
+    const { id } = req.params;
+    const obj = req.body;
+    const user = await User.findOne({ where: { id } });
+    user.update(obj);
+    res.status(200).send(`Пользователь ${id} обновлен`);
+  } catch (error) {
+    res.status(400).send(`Ошибка: ${error}`);
+  }
 });
 
 userRouter.delete('/:id', async (req, res) => {
