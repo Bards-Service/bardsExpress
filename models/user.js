@@ -46,7 +46,7 @@ const model = User.init(
     phone: {
       type: DataTypes.STRING,
       validate: {
-        is: ['+[0-9]{11}'],
+        is: /^\+[0-9]{11}$/,
       },
     },
     hashPassword: {
@@ -58,6 +58,11 @@ const model = User.init(
       validate: {
         isUrl: true,
       },
+    },
+    isDeleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
     },
   },
   {

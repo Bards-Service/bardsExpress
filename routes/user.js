@@ -54,9 +54,23 @@ userRouter.put('/:id', async (req, res) => {
 });
 
 userRouter.delete('/:id', async (req, res) => {
-  // по факту на данный момент мы не будем удалять пользователя,
-  // нужно в базе данных ставить ему флаг isDeleted : true
-  res.send('Метод удаоения пользователя не реализован!');
+  try {
+    const { id } = req.params;
+    const [updatedRowsCount] = await User.update(
+      { isDeleted: true },
+      { where: { id } },
+    );
+
+    if (updatedRowsCount === 0) {
+      res.status(404).send('Пользователь не найден!');
+      return;
+    }
+
+    res.send('Пользователь успешно удален!');
+  } catch (error) {
+    console.error('Ошибка при удалении пользователя:', error);
+    res.status(500).send('Произошла ошибка при удалении пользователя.');
+  }
 });
 
 export default userRouter;
