@@ -17,6 +17,7 @@ app.use(Express.json());
 
 // Роуты
 app.use('/user', userRouter);
+app.use('/news', newsRouter);
 
 app.listen(port, () => {
   console.log(`Bards Express app listening on port ${port}`);
