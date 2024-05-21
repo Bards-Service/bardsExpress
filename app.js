@@ -1,6 +1,7 @@
 import Express from 'express';
 import db from './models/index.js';
 import userRouter from './routes/user.js';
+import newsRouter from './routes/news.js';
 
 const app = Express();
 const port = 3000;
