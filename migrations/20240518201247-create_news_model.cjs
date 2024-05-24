@@ -18,7 +18,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
       },
-      header: {
+      title: {
         type: Sequelize.DataTypes.TEXT,
         validate: {
           notEmpty: true,
