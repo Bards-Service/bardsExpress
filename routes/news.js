@@ -20,7 +20,7 @@ newsRouter.post('/', async (req, res) => {
       },
       defaults: {
         userId: req.body.userId,
-        header: req.body.header,
+        title: req.body.title,
         imageSrc: req.body.imageSrc,
         text: req.body.text,
       },
