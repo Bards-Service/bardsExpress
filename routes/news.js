@@ -16,7 +16,7 @@ newsRouter.post('/', async (req, res) => {
   try {
     const thisNews = await News.findOrCreate({
       where: {
-        header: req.body.header,
+        title: req.body.title,
       },
       defaults: {
         userId: req.body.userId,
