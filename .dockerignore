@@ -1,1 +1,9 @@
 node_modules
+Dockerfile
+Makefile
+README.md
+.git
+.gitignore
+.github
+.dockerignore
+.DS_Store
