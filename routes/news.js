@@ -6,28 +6,23 @@ const newsRouter = express.Router();
 newsRouter.get('/', async (req, res) => {
   try {
     const news = await News.findAll({});
-    res.status(200).send(`Все новости: ${JSON.stringify(news, null, 2)}`);
+    res.status(200).send(news);
   } catch (e) {
-    res.status(503).send(`Ошибка базы данных: ${e}`);
+    res.status(503).send({ message: `Ошибка базы данных: ${e}` });
   }
 });
 
 newsRouter.post('/', async (req, res) => {
   try {
-    const thisNews = await News.findOrCreate({
-      where: {
-        title: req.body.title,
-      },
-      defaults: {
-        userId: req.body.userId,
-        title: req.body.title,
-        imageSrc: req.body.imageSrc,
-        text: req.body.text,
-      },
+    const thisNews = await News.create({
+      userId: req.body.userId,
+      title: req.body.title,
+      imageSrc: req.body.imageSrc,
+      text: req.body.text,
     });
-    res.status(201).send(`id: ${JSON.stringify(thisNews[0].id, null, 2)}`);
+    res.status(201).send(thisNews.id);
   } catch (e) {
-    res.status(400).send(`Ошибка создания новости: ${e}`);
+    res.status(400).send({ message: `Ошибка создания новости: ${e}` });
   }
 });
 
@@ -38,9 +33,9 @@ newsRouter.get('/:id', async (req, res) => {
   });
   const newsInfo = JSON.stringify(news, null, 2);
   if (newsInfo.length - 2 !== 0) {
-    res.status(200).send(`Новость ${id}: ${newsInfo}`);
+    res.status(200).send(news);
   } else {
-    res.status(404).send('Новость не найдена!');
+    res.status(404).send({ message: 'Новость не найдена!' });
   }
 });
 
@@ -50,9 +45,9 @@ newsRouter.put('/:id', async (req, res) => {
     const obj = req.body;
     const news = await News.findOne({ where: { id } });
     news.update(obj);
-    res.status(200).send(`Новость ${id} обновлена`);
+    res.status(200).send({ message: `Новость ${id} обновлена` });
   } catch (error) {
-    res.status(400).send(`Ошибка: ${error}`);
+    res.status(400).send({ message: `Ошибка: ${error}` });
   }
 });
 
@@ -65,14 +60,14 @@ newsRouter.delete('/:id', async (req, res) => {
     );
 
     if (updatedRowsCount === 0) {
-      res.status(404).send('Новость не найдена!');
+      res.status(404).send({ message: 'Новость не найдена!' });
       return;
     }
 
-    res.send('Новость успешно удалена!');
+    res.send({ message: 'Новость успешно удалена!' });
   } catch (error) {
     console.error('Ошибка при удалении новости:', error);
-    res.status(500).send('Произошла ошибка при удалении новости.');
+    res.status(500).send({ message: 'Произошла ошибка при удалении новости.' });
   }
 });
 

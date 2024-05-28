@@ -18,7 +18,7 @@ const model = News.init(
         key: 'id',
       },
     },
-    header: {
+    title: {
       type: DataTypes.TEXT,
       validate: {
         notEmpty: true,
